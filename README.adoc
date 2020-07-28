@@ -1,3 +1,46 @@
 = titox
 Gabriel Montagné Láscaris-Comneno <gabriel@tibas.london>
 v0.0.1
+
+Thin Jinja2 wrapper for expanding LaTeX templates that will take a list of items and make them available to the j2 template as `items`.
+It uses the LaTeX config from http://eosrei.net/articles/2015/11/latex-templates-python-and-jinja2-generate-pdfs[Brad Erickson] and 
+https://web.archive.org/web/20121024021221/http://e6h.de/post/11/[Johannes Dollinger]
+
+That is, 
+
+----
+\documentclass{article}
+\begin{document}
+\section{Example}
+An example document using \LaTeX, Python, and Jinja.
+
+% This is a regular LaTeX comment
+\section{\VAR{section1}}
+\#{This is a long-form Jinja comment}
+\begin{itemize}
+\BLOCK{ for x in items }
+  \item Counting: \VAR{x}
+\BLOCK{ endfor }
+\end{itemize}
+
+\section{\VAR{section2}}
+%# This is a short-form Jinja comment
+\begin{itemize}
+%% for x in items
+  \item Counting: \VAR{x}
+%% endfor
+\end{itemize}
+
+\end{document}
+----
+
+----
+usage: titox [-h] -i ITEMS [ITEMS ...] -j J2
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i ITEMS [ITEMS ...], --items ITEMS [ITEMS ...]
+  -j J2, --j2 J2
+----
+
+Flor de una noche.
